@@ -1,0 +1,85 @@
+import 'package:blog_app/core/theme/app_pallete.dart';
+import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
+import 'package:blog_app/features/auth/presentation/widgets/auth_field.dart';
+import 'package:blog_app/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:flutter/material.dart';
+
+class SignupPage extends StatefulWidget {
+  static route() => MaterialPageRoute(builder: (context) => SignupPage());
+  const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final bool _isObscureText = true;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            spacing: 20,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Signup.',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 5),
+              AuthField(hintText: 'Name', controller: _nameController),
+              AuthField(hintText: 'Email', controller: _emailController),
+              AuthField(
+                hintText: 'Password',
+                controller: _passwordController,
+                isObscureText: _isObscureText,
+              ),
+              AuthGradientButton(buttonText: 'Sign Up'),
+              GestureDetector(
+                onTap: () => Navigator.push(context, LoginPage.route()),
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Already have an account? ',
+                    style: Theme.of(context).textTheme.titleSmall,
+                    children: [
+                      TextSpan(
+                        text: 'Sign In',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: AppPallete.gradient2,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.23,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
