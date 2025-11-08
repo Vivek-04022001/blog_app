@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _passwordController,
                 isObscureText: _isObscureText,
               ),
-              AuthGradientButton(buttonText: 'Sign In'),
+              AuthGradientButton(buttonText: 'Sign In', onPressed: () {}),
               GestureDetector(
                 onTap: () => Navigator.push(context, SignupPage.route()),
                 child: RichText(
